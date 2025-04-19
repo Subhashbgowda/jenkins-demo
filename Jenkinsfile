@@ -2,28 +2,32 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone') {
+        stage('Check Docker Version') {
             steps {
-                echo 'Cloning the GitHub repo...'
+                sh 'docker --version'
             }
         }
 
-        stage('Build') {
+        stage('List Running Containers') {
             steps {
-                echo 'Building the app...'
+                sh 'docker ps -a'
             }
         }
 
-        stage('Test') {
+        stage('Show Disk Space') {
             steps {
-                echo 'Running tests...'
+                sh 'df -h'
             }
         }
 
-        stage('Deploy') {
+        stage('Hello from Shell') {
             steps {
-                echo 'Deploying to production...'
+                sh '''
+                    echo "Hello Subhash!"
+                    echo "This is a custom shell script running inside Jenkins"
+                '''
             }
         }
     }
 }
+
